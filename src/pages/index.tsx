@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GetStaticProps } from "next";
 import { api } from '../services/api'
+import MovieList from '../components/MovieRow';
 
 type Items = {
   name: { name: String };
@@ -22,21 +23,30 @@ type Movies = {
 }
 
 
-export default function Home(props: Movies) {
-  console.log(props.items.results[0].name)
+type propsHome = {
+  result: Movies[];
+}
+
+
+export default function Home(props: propsHome) {
+
   return (
-    <>
-      <h1>{(props.items.results[0].name)}</h1>
-      <img src={`https://image.tmdb.org/t/p/w300${props.items.results[0].backdrop_path}`} alt="" />
-    </>
+    <div className="page">
+      <section className="lists">
+        {props.result.map((item, key) => (
+          <div key={key}>
+            <MovieList title={item.title} items={item.items} />
+          </div>
+        ))}
+      </section>
+    </div>
   )
 }
 
-const API_KEY = '530778534ba5c806ad8938e7943e7f46';
-const API_BASE = 'https://api.themoviedb.org/3';
-
 
 export const getStaticProps: GetStaticProps = async () => {
+  const API_KEY = '530778534ba5c806ad8938e7943e7f46';
+  const API_BASE = 'https://api.themoviedb.org/3';
 
   const basicFecth = async (endPoint) => {
     const { data } = await api(`${endPoint}`)
@@ -45,9 +55,47 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      slug: 'originals',
-      title: "Originais Netflix",
-      items: await basicFecth(`/discover/tv/?with_network=213&language=pt-BR&api_key=${API_KEY}`)
+      result: [{
+        slug: 'originals',
+        title: "Originais da Netflix",
+        items: await basicFecth(`/discover/tv/?with_network=213&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'trending',
+        title: "Recomendados para você",
+        items: await basicFecth(`/trending/all/week?language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'toprated',
+        title: "Em Alta",
+        items: await basicFecth(`/movie/top_rated?&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'action',
+        title: "Ação",
+        items: await basicFecth(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'comedy',
+        title: "Comédia",
+        items: await basicFecth(`/discover/movie?with_genres=35&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'horror',
+        title: "Terror",
+        items: await basicFecth(`/discover/movie?with_genres=27&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'romance',
+        title: "Romance",
+        items: await basicFecth(`/discover/movie?with_genres=10749&language=pt-BR&api_key=${API_KEY}`)
+      },
+      {
+        slug: 'documentary',
+        title: "Documentários",
+        items: await basicFecth(`/discover/movie?with_genres=99&language=pt-BR&api_key=${API_KEY}`)
+      },
+      ]
     },
     revalidate: 60 * 60 * 2
   }
