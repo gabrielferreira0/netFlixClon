@@ -2,5 +2,46 @@
     margin-bottom: 30px;
     h2 {
         margin : 0px 0px 0px  30px;
+    }   
+}
+
+.movieRowlistArea {
+    overflow-x: hidden;
+    padding-left: 30px;
+}
+
+.movieRowList {
+ width:  200rem;
+}
+
+.movieRowItem {
+    display: inline-block;
+    width: 150px;
+    cursor: pointer;
+
+    img {
+        border-radius: 5px;
+        width: 100%;
+        transform:scale(0.9);
+        transition: all ease 0.2s;
     }
+    img:hover{
+        transform:scale(1);
+    }
+}
+
+.featured{
+    height: 90vh;
+    .featuredVertical {
+        width: inherit;
+        height: inherit;
+        background: linear-gradient(to top,#111 10%, transparent 90%);
+        .featuredHorizontal{
+            width: inherit;
+            height: inherit;
+            background: linear-gradient(to right , #111 30% , transparent 70%);
+        }
+    }
+    
+    
 }

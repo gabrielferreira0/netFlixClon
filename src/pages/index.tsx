@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GetStaticProps } from "next";
 import { api } from '../services/api'
 import MovieList from '../components/MovieRow';
+import Tmdb from './Tmdb';
+import FeaturedMovie from '../components/FeaturedMovie';
 
 type Items = {
   name: { name: String };
@@ -29,9 +31,31 @@ type propsHome = {
 
 
 export default function Home(props: propsHome) {
+  const [featuredData, setFeaturedData] = useState(null);
+
+
+  useEffect(() => {
+    const loadAll = async () => {
+      let originals = props.result.filter(i => i.slug === 'originals');
+      let randomChose = Math.floor(Math.random() * (originals[0].items.results.length - 1))
+      let chosen = originals[0].items.results[randomChose];
+
+      let chosenInfo = Tmdb.getMovieInfo(chosen.id, 'tv')
+      chosenInfo.then(result => {
+        setFeaturedData(result);
+      })
+    }
+
+    loadAll();
+  }, []);
+
 
   return (
     <div className="page">
+      {featuredData &&
+        <FeaturedMovie items={featuredData} />
+      }
+
       <section className="lists">
         {props.result.map((item, key) => (
           <div key={key}>
@@ -52,6 +76,26 @@ export const getStaticProps: GetStaticProps = async () => {
     const { data } = await api(`${endPoint}`)
     return data;
   }
+
+  getMovieInfo: async (movieId, type) => {
+    let info = {};
+    if (movieId) {
+      switch (type) {
+        case 'movie':
+          info = await basicFecth(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+          break;
+        case 'tv':
+          info = await basicFecth(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+          break;
+        default:
+          info = null;
+          break;
+      }
+    }
+
+    return info;
+  }
+
 
   return {
     props: {
@@ -100,4 +144,7 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 60 * 60 * 2
   }
 
+
+
 }
+
