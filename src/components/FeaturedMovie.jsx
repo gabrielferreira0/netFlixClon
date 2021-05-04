@@ -21,7 +21,7 @@ export default function Featured({ items }) {
                 <div className={styles.featuredHorizontal}>
                     <div className={styles.featuredName}>{items.original_name} </div>
                     <div className={styles.featuredInfo}>
-                        <div className={styles.featuredPoints}> Nota:{items.vote_average}</div>
+                        <div className={styles.featuredPoints}>{items.vote_average} pontos</div>
                         <div className={styles.featuredYear}>{firstDate.getFullYear()}</div>
                         <div className={styles.featuredSeasons}>{items.number_of_seasons} Temporada{items.number_of_seasons !== 1 ? 's' : ''}</div>
                     </div>
@@ -29,8 +29,8 @@ export default function Featured({ items }) {
                         {items.overview}
                     </div>
                     <div className={styles.featuredButtons}>
-                        <button> Assistir</button>
-                        <button> + Minha Lista</button>
+                        <a className={styles.watch}> ▶ Assistir</a>
+                        <a className={styles.addList}> + Minha Lista</a>
                     </div>
                     <div className={styles.featuredGenres}>
                         <strong>Gêneros:</strong> {genres.join(', ')}

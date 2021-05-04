@@ -40,6 +40,79 @@
             width: inherit;
             height: inherit;
             background: linear-gradient(to right , #111 30% , transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 1.5rem;
+        }
+            .featuredName {
+                font-size: 3.7rem;
+                font-weight: bold;
+            }
+            .featuredInfo {
+                font-size: 1rem;
+                font-weight: bold;
+                margin-top: 1rem;
+
+                .featuredPoints{
+                    display: inline-block;
+                    color: #46d369;
+                    margin-right: 0.90rem;
+                }
+                .featuredYear {
+                    display: inline-block;
+                    margin-right: 0.90rem;
+                }
+                .featuredSeasons {
+                    display: inline-block;
+                }
+    
+        }
+        .featuredDescription {
+            margin-top:  1rem;
+            font-size: 1.2rem;
+            color: #999;
+            max-width: 40%;
+        }
+        .featuredButtons{
+            margin-top: 1rem;
+            .watch{
+                display: inline-block;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding:  0.70rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 0.95rem;
+                background-color: #fff;
+                color: #000;
+                cursor: pointer;
+                opacity: 1;
+                transition: 0.3;
+            }
+            .watch:hover {
+                opacity: 0.7;
+            }
+
+            .addList{
+                display: inline-block;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding:  0.70rem 1.5rem;
+                border-radius: 5px;
+                margin-right: 0.95rem;
+                background-color: #333;
+                color: #fff;
+                cursor: pointer;
+                opacity: 1;
+            }
+            .addList:hover {
+                opacity:0.7;
+            }
+        }
+        .featuredGenres{
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #999;
         }
     }
     
