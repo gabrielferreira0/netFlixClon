@@ -4,6 +4,7 @@ import { api } from '../services/api'
 import MovieList from '../components/MovieRow';
 import Tmdb from './Tmdb';
 import FeaturedMovie from '../components/FeaturedMovie';
+import Header from '../components/Header';
 
 type Items = {
   name: { name: String };
@@ -32,6 +33,7 @@ type propsHome = {
 
 export default function Home(props: propsHome) {
   const [featuredData, setFeaturedData] = useState(null);
+  const [blackHeader, setBlackHeader] = useState(false);
 
 
   useEffect(() => {
@@ -49,9 +51,25 @@ export default function Home(props: propsHome) {
     loadAll();
   }, []);
 
-
+  useEffect(() => {
+    const scrollPage = () => {
+      if (window.screenY > 10) {
+        setBlackHeader(false);
+      } else {
+        setBlackHeader(true);
+      }
+    }
+    window.addEventListener('scroll', scrollPage)
+    return () => {
+      window.removeEventListener('scroll', scrollPage);
+    }
+  }, [])
   return (
+
+
     <div className="page">
+
+      <Header color={blackHeader} />
       {featuredData &&
         <FeaturedMovie items={featuredData} />
       }
@@ -63,6 +81,9 @@ export default function Home(props: propsHome) {
           </div>
         ))}
       </section>
+      <footer>
+        Desenvolvido por  <strong>github.com/gabrielferreira0</strong>
+      </footer>
     </div>
   )
 }

@@ -3,6 +3,10 @@
     h2 {
         margin : 0px 0px 0px  30px;
     }   
+
+    .movieRowList {
+        transition: all ease 0.5s;
+    }
 }
 
 .movieRowlistArea {
@@ -10,9 +14,7 @@
     padding-left: 30px;
 }
 
-.movieRowList {
- width:  200rem;
-}
+
 
 .movieRowItem {
     display: inline-block;
@@ -43,7 +45,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-left: 1.5rem;
+            padding-left: 1.7rem;
+            padding-top: 1rem;
         }
             .featuredName {
                 font-size: 3.7rem;
@@ -117,4 +120,77 @@
     }
     
     
+}
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0 2rem;
+    background: transparent;
+ }
+ .header2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0 2rem;
+    background-color: #141414;
+ }
+
+
+
+.headerLogo {
+ img {
+     height: 100%;
+     height: 2rem;
+ }
+}
+.headerUser{
+     height: 3rem;
+     img{
+         border-radius: 5px;
+         height: 100%;
+     }
+
+}
+
+
+.movieRowLeft , .movieRowRight {
+position: absolute;
+width: 2rem;
+height: 14rem;
+background-color:  rgba(0,0,0,0.6);
+z-index: 99;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+cursor: pointer;
+opacity: 0;
+transition: all ease 0.5s;
+
+}
+
+
+
+.movieRowRight{
+ right: 0;
+
+}
+.movieRowLeft{
+left:0;
+}
+ .movieRow:hover{
+    .movieRowLeft,.movieRowRight{
+        opacity: 1;
+    }
 }
